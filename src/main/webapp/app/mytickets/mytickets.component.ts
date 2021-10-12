@@ -44,17 +44,21 @@ export class MyticketsComponent implements OnInit {
     );
   }
 
-  sort(): string[] {
+  /*sort(): string[] {
     const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
       result.push('id');
     }
     return result;
+  }*/
+
+  registerChangeInTickets(): void {
+    this.eventSubscriber = this.eventManager.subscribe('ticketListModification', (response: any) => this.loadSelf());
   }
 
   protected paginateTickets(data: ITicket[], headers: HttpHeaders): void {
     //alert(headers.get('link'));
-    this.links = this.parseLinks.parse(headers.get('link') || '');
+    this.links = this.parseLinks.parse(headers.get('link') ?? '');
     //alert('coucou');
     this.totalItems = parseInt(headers.get('X-Total-Count') ? this.totalItems : '', 10);
     this.tickets = data;
@@ -62,9 +66,5 @@ export class MyticketsComponent implements OnInit {
 
   protected onError(errorMessage: string): void {
     this.jhiAlertService.error(errorMessage, null, '');
-  }
-
-  registerChangeInTickets(): void {
-    this.eventSubscriber = this.eventManager.subscribe('ticketListModification', (response: any) => this.loadSelf());
   }
 }

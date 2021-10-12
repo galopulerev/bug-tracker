@@ -43,9 +43,9 @@
         <td>
           <a [routerLink]="['/ticket', ticket.id, 'view']">{{ ticket.id }}</a>
         </td>
-        <td>{{ ticket.title }}</td>
+        <td>{{ ticket.ticket }}</td>
         <td>{{ ticket.description }}</td>
-        <td>{{ ticket.dueDate | date: 'mediumDate' }}</td>
+        <td>{{ ticket.dueDate }}</td>
         <td>{{ ticket.done }}</td>
         <td>
           <div *ngIf="ticket.project">
